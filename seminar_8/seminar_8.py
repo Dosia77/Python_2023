@@ -2,7 +2,7 @@ def choose(phonebook):
     while True:
         print('Что вы хотите сделать?')
         choice = input('1 - Импортировать данные\n2 - Найти контакт\n3 - Добавить контакт\n\
-4 - Изменить контакт\n5 - Удалить контакт\n6 - Просмотреть все контакты\n0 - Выйти\n')
+4 - Изменить контакт\n5 - Удалить контакт\n6 - Просмотреть все контакты\n7 - Копировать по номеру строки\n0 - Выйти\n')
         print()
         if choice == '1':
             file_add = input('Введите название импортируемого файла с расширением: ')
@@ -18,6 +18,8 @@ def choose(phonebook):
             delete(phonebook)
         elif choice == '6':
             show(phonebook)
+        elif choice == '7':
+            get_nth_line()   
         elif choice == '0':
             break
         else:
@@ -159,6 +161,15 @@ def print_all(contacts: list):
             print(f'{key}: {value:12}', end='')
         print()
 
+def get_nth_line(): 
+    number = int(input('Введите номер строки для копирования: '))
+    with open('Phonebook.txt') as source, open('output.txt', 'a', encoding='utf-8') as destination:
+        try:
+            lines = source.readlines()
+            destination.write(lines[number-1]+'\n')
+            print('Строка успешно скопирована')
+        except Exception:
+            print('Нет такой строки!')
 
 if __name__ == '__main__':
     file = 'Phonebook.txt'
