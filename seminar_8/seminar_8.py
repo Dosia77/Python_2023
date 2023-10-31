@@ -173,4 +173,4 @@ def get_nth_line():
 
 if __name__ == '__main__':
     file = 'Phonebook.txt'
-    choose(fil)
+    choose(file)
