@@ -1,0 +1,22 @@
+{
+    "notes": [
+        {
+            "id": 1,
+            "title": "popa",
+            "body": "dudin",
+            "timestamp": "2024-01-25"
+        },
+        {
+            "id": 2,
+            "title": "ivan",
+            "body": "ivanov",
+            "timestamp": "2024-01-25"
+        },
+        {
+            "id": 3,
+            "title": "vasia",
+            "body": "pupcin",
+            "timestamp": "2024-01-25"
+        }
+    ]
+}

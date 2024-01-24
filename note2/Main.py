@@ -4,7 +4,7 @@ from datetime import datetime
 
 notes = []
 def create_first_note():
-    
+
     timestamp = datetime.now().strftime('%Y-%m-%d') #%H:%M:%S') 
     note_id = 1 
     note_title = input("Введите заголовок заметки: ")
@@ -26,7 +26,7 @@ def create_first_note():
 def add_notes():
     data = json.load(open("notes.json")) 
     timestamp = datetime.now().strftime('%Y-%m-%d')#№ %H:%M:%S')
-    note_id = len(data['notes']) + 1 
+    note_id = (len(data['notes']) + 1 )
     note_title = input("Введите заголовок заметки: ")
 
     note_body = input("Введите текст заметки: ")
@@ -83,9 +83,9 @@ def delete_note():
         minimal = minimal+1   
     
     with open("notes.json", "w") as file:
-
         json.dump(data, file,indent=4, ensure_ascii=False )
-  
+
+    print("Заметка удалена!")    
 
 def read_notes():
    
@@ -95,18 +95,20 @@ def read_notes():
 
 
 def select_to_parametr():
-    param = input("Введите параметр для поиска\n1. Поиск по id\n2. Введите название\n3. Введите дату в формате ГГГГ-ММ-ДД")
-    #param = '1'
+    param = input("Введите id или название заметки или дату в формате ГГГГ-ММ-ДД: ")
     data = json.load(open("notes.json"))
-    minimal = 0
-    for txt in data['notes']:
-        if txt['id'] == param:
-            print(data['notes'][minimal]['title'])
-        else:
-            print("opa")
-            minimal = minimal+1  
 
-#def start():
+    for note in data['notes']:
+        if note['title'] == param:
+            print(f"ID: {note['id']}\nЗаголовок: {note['title']}\nТекст: {note['body']}\nДата/Время: {note['timestamp']}\n")
+        elif note["timestamp"] == param:
+            print(f"ID: {note['id']}\nЗаголовок: {note['title']}\nТекст: {note['body']}\nДата/Время: {note['timestamp']}\n")
+        elif note['id'] == int(param):
+            print(f"ID: {note['id']}\nЗаголовок: {note['title']}\nТекст: {note['body']}\nДата/Время: {note['timestamp']}\n") 
+        else:
+            print("Нет такой заметки!")
+
+
 
 while True:
 
@@ -115,8 +117,15 @@ while True:
     choice = input("Выберите действие: ")
 
     if choice == "1":
-        create_first_note()
-
+        options = input("Вы уверены, что хотите удалить все записи и начать сначала?\nВвудите 'да' или 'нет': ")
+        if options == "да":
+            print("Тогда начнем!:)))")
+            create_first_note()
+        if options == "нет":
+            break       
+        else:
+            print("Ваш ответ непонятен!")
+            
     elif choice == "2":
         add_notes()
 
@@ -130,10 +139,10 @@ while True:
         delete_note()
 
     elif choice == "6":
-        break
+        select_to_parametr()
 
     elif choice == "7":
-        select_to_parametr()
+        break
 
     else:
         print("Некорректный выбор. Попробуйте снова.")
